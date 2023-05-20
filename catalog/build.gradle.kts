@@ -20,12 +20,12 @@ dependencies {
 
     implementation(libs.androidx.hilt.navigation.compose)
 
-    androidTestImplementation(project(":shared:testing"))
+    androidTestImplementation(project(":testing"))
     debugImplementation (libs.androidx.compose.ui.testManifest)
 
     androidTestImplementation (libs.androidx.test.junit)
     androidTestImplementation (libs.androidx.test.espresso)
     androidTestImplementation (libs.androidx.compose.ui.test)
 
-    testImplementation(project(":shared:testing"))
+    testImplementation(project(":testing"))
 }

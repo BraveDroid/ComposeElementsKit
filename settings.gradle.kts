@@ -27,5 +27,5 @@ val modulesLibraries = arrayOf<String>(
 include(
     *modulesApp,
     *modulesLibraries,
-    ":shared:testing",
+    ":testing",
 )

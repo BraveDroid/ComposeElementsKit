@@ -2,7 +2,7 @@
 #AGP
 androidGradlePlugin = "8.0.1"
 #KOTLIN
-kotlin = "1.8.20"
+kotlin = "1.8.21"
 kotlinxCoroutines = "1.7.0"
 kotlinxDatetime = "0.4.0"
 kotlinxSerializationJson = "1.4.1"
@@ -24,7 +24,7 @@ accompanist = "0.28.0"
 androidxAppCompat = "1.6.0"
 androidxBrowser = "1.4.0"
 androidxComposeBom = "2023.05.01"
-kotlinCompilerExtension = "1.4.6"
+kotlinCompilerExtension = "1.4.7"
 material = "1.8.0"
 androidxComposeMaterial3 = "1.1.0"
 androidxComposeRuntimeTracing = "1.0.0-alpha01"
@@ -94,6 +94,7 @@ androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", 
 #COMPOSE
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4" }
