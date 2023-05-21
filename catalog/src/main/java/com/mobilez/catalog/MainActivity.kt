@@ -10,7 +10,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.mobilez.elementskit.ComposePlaygroundTheme
 import com.mobilez.elementskit.elements.ExpandableCard
-import com.mobilez.elementskit.elements.Greeting
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +22,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background,
                 ) {
                     Column {
-                        ExpandableCard(name = "Android")
+                        ExpandableCard(title = "Android")
                     }
                 }
             }

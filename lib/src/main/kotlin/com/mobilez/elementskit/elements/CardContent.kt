@@ -1,8 +1,7 @@
 package com.mobilez.elementskit.elements
 
+import android.content.res.Configuration
 import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,19 +25,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Wallpapers
 import androidx.compose.ui.unit.dp
-import com.mobilez.compose.elementskit.R
 import com.mobilez.compose.elementskit.R.string
 
 @Composable
-fun ExpandableCard(name: String) {
+fun ExpandableCard(
+    title: String,
+    modifier: Modifier = Modifier,
+    isExpended: Boolean = false,
+    content: @Composable () -> Unit = {},
+) {
     Card(
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primary,
-        ),
-        modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary),
+        modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp),
     ) {
-        var expanded by remember { mutableStateOf(false) }
+        var expanded by remember { mutableStateOf(isExpended) }
         Column(
             modifier = Modifier
                 .padding(12.dp)
@@ -61,7 +64,7 @@ fun ExpandableCard(name: String) {
                         .padding(horizontal = 12.dp),
                 ) {
                     Text(
-                        text = name,
+                        text = title,
                         style = MaterialTheme.typography.headlineMedium.copy(
                             fontWeight = FontWeight.ExtraBold,
                         ),
@@ -78,12 +81,33 @@ fun ExpandableCard(name: String) {
                     )
                 }
             }
-            if (expanded) {
-                Text(
-                    text = ("Composem ipsum color sit lazy, " +
-                        "padding theme elit, sed do bouncy. ").repeat(4),
-                )
-            }
+            if (expanded) content()
         }
     }
+}
+
+@Preview(
+    name = "tablet",
+    device = "spec:width=1280dp,height=800dp,dpi=480",
+    uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL,
+    wallpaper = Wallpapers.RED_DOMINATED_EXAMPLE,
+)
+@Preview(
+    name = "Phone",
+    device = "spec:width=411dp,height=891dp",
+    uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL,
+    wallpaper = Wallpapers.RED_DOMINATED_EXAMPLE,
+)
+@Composable
+private fun ExpandableCardPrev() {
+    ExpandableCard(
+        title = "Card Title",
+        isExpended = true,
+        content = {
+            Text(
+                text = ("Composem ipsum color sit lazy, " +
+                    "padding theme elit, sed do bouncy. ").repeat(4),
+            )
+        },
+    )
 }
