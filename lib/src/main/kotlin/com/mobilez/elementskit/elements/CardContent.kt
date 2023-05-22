@@ -35,7 +35,7 @@ fun ExpandableCard(
     title: String,
     modifier: Modifier = Modifier,
     isExpended: Boolean = false,
-    content: @Composable () -> Unit = {},
+    content: @Composable () -> Unit,
 ) {
     Card(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary),

@@ -2,4 +2,6 @@
 <resources>
     <string name="show_more">Show more</string>
     <string name="show_less">Show less</string>
+    <string name="placeholder_search">Search</string>
+    <string name="image_text">Image text</string>
 </resources>
