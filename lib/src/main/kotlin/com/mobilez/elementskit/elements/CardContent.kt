@@ -65,7 +65,7 @@ fun ExpandableCard(
                 ) {
                     Text(
                         text = title,
-                        style = MaterialTheme.typography.headlineMedium.copy(
+                        style = MaterialTheme.typography.displaySmall.copy(
                             fontWeight = FontWeight.ExtraBold,
                         ),
                     )

@@ -1,9 +1,10 @@
-package com.mobilez.elementskit
+package com.mobilez.elementskit.theme
 
 import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Shapes
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
@@ -17,35 +18,37 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    surface = Blue,
-    onSurface = Navy,
-    primary = Navy,
-    onPrimary = Chartreuse
+    primary = Color.White,
+    onPrimary = gray900,
+    secondary = rust300,
+    onSecondary = gray900,
+    tertiary = Color.Black,
+    onTertiary = Color.White,
+    background = gray900,
+    onBackground = taupe100,
+    surface = taupe100.copy(alpha = 0.15f),
+    onSurface = Color.White.copy(alpha = .8f),
 )
 
 private val LightColorScheme = lightColorScheme(
-    surface = Blue,
-    onSurface = Color.White,
-    primary = LightBlue,
-    onPrimary = Navy
-)
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
+    primary = gray900,
     onPrimary = Color.White,
+    secondary = rust600,
     onSecondary = Color.White,
+    tertiary = Color.Black,
     onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    background = taupe100,
+    onBackground = taupe800,
+    surface = taupe100.copy(alpha = .85f),
+    onSurface = gray900.copy(alpha = 0.8f),
+)
 
 @Composable
 fun ComposePlaygroundTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
@@ -68,6 +71,7 @@ fun ComposePlaygroundTheme(
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
-        content = content
+        content = content,
+        shapes = Shapes(),
     )
 }

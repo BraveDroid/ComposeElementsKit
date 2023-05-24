@@ -1,7 +1,10 @@
-
 <resources>
     <string name="show_more">Show more</string>
     <string name="show_less">Show less</string>
     <string name="placeholder_search">Search</string>
     <string name="image_text">Image text</string>
+    <string name="bottom_navigation_home">HOME</string>
+    <string name="bottom_navigation_profile">PROFILE</string>
+    <string name="circle_imageText_Row">Circle Image Text Row</string>
+    <string name="media_textCard_collections_grid">Media Text Card Collections Grid</string>
 </resources>
