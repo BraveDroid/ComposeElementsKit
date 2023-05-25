@@ -15,12 +15,12 @@ import com.mobilez.compose.elementskit.R.string
 import com.mobilez.elementskit.theme.ComposePlaygroundTheme
 
 val MediaTextCardCollectionsData = listOf(
+    R.drawable.flower to R.string.image_text,
+    R.drawable.flower2 to R.string.image_text,
+    R.drawable.flower3 to R.string.image_text,
+    R.drawable.rose to R.string.image_text,
     R.drawable.demo to R.string.image_text,
-    R.drawable.demo to R.string.image_text,
-    R.drawable.demo to R.string.image_text,
-    R.drawable.demo to R.string.image_text,
-    R.drawable.demo to R.string.image_text,
-    R.drawable.demo to R.string.image_text,
+    R.drawable.blueflower to R.string.image_text,
 ).map { DrawableStringPair(it.first, it.second) }
 
 @Composable

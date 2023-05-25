@@ -2,6 +2,8 @@ package com.mobilez.elementskit.elements
 
 import android.content.res.Configuration
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,12 +31,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.Wallpapers
 import androidx.compose.ui.unit.dp
 import com.mobilez.compose.elementskit.R.string
+import com.mobilez.elementskit.elements.AnimationType.SPRING
+import com.mobilez.elementskit.elements.AnimationType.TWEEN
 
 @Composable
 fun ExpandableCard(
     title: String,
     modifier: Modifier = Modifier,
     isExpended: Boolean = false,
+    animationType: AnimationType = TWEEN,
     content: @Composable () -> Unit,
 ) {
     Card(
@@ -45,15 +50,7 @@ fun ExpandableCard(
         Column(
             modifier = Modifier
                 .padding(12.dp)
-                .animateContentSize(
-//                    animationSpec = spring(
-//                        dampingRatio = Spring.DampingRatioMediumBouncy,
-//                        stiffness = Spring.StiffnessLow,
-//                    ),
-                    animationSpec = tween(
-                        durationMillis = 300,
-                    ),
-                ),
+                .animateContentSizeByAnimationType(animationType = animationType),
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -85,6 +82,29 @@ fun ExpandableCard(
         }
     }
 }
+
+private fun Modifier.animateContentSizeByAnimationType(animationType: AnimationType) =
+    when (animationType) {
+        TWEEN -> this.animateContentSize(
+            tween(
+                durationMillis = 300,
+            ),
+        )
+
+        SPRING -> this.animateContentSize(
+            spring(
+                dampingRatio = Spring.DampingRatioMediumBouncy,
+                stiffness = Spring.StiffnessLow,
+            ),
+        )
+    }
+
+enum class AnimationType {
+    SPRING,
+    TWEEN,
+    ;
+}
+
 
 @Preview(
     name = "tablet",
