@@ -1,6 +1,6 @@
 [versions]
 #AGP
-androidGradlePlugin = "8.0.1"
+androidGradlePlugin = "8.0.2"
 #KOTLIN
 kotlin = "1.8.21"
 kotlinxCoroutines = "1.7.0"
