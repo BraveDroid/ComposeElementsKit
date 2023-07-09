@@ -1,11 +1,9 @@
 package com.mobilez.elementskit.elements
 
 import android.util.Log
-import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.detectTransformGestures
 import androidx.compose.foundation.layout.Column
@@ -31,11 +29,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.mobilez.compose.elementskit.R
 import com.mobilez.elementskit.theme.ComposePlaygroundTheme
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.isActive
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
-import kotlin.time.Duration.Companion.milliseconds
+
+data class ZoomDragAmount(
+    val zoom: Float,
+    val DragAmmount: Float,
+)
 
 @Composable
 fun ZoomableImage(modifier: Modifier = Modifier) {
@@ -50,23 +53,24 @@ fun ZoomableImage(modifier: Modifier = Modifier) {
     var offsetX by remember { mutableStateOf(0f) }
     val animatingOffsetX by animateFloatAsState(
         targetValue = offsetX,
-        animationSpec = tween(
-            durationMillis = 500,
-            easing = LinearOutSlowInEasing,
-        ),
+        // animationSpec = tween(
+        //     durationMillis = 500,
+        //     easing = LinearOutSlowInEasing,
+        // ),
     )
 
     var offsetY by remember { mutableStateOf(0f) }
     val animatingOffsetY by animateFloatAsState(
         targetValue = offsetY,
-        animationSpec = tween(
-            durationMillis = 500,
-            easing = LinearOutSlowInEasing,
-        ),
+        // animationSpec = tween(
+        //     durationMillis = 500,
+        //     easing = LinearOutSlowInEasing,
+        // ),
     )
 
     var isPitchDetected by remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
+    val gestureEvents = remember { MutableSharedFlow<ZoomDragAmount>() }
 
     LaunchedEffect(key1 = isPitchDetected) {
         if (!isPitchDetected) {
@@ -75,7 +79,18 @@ fun ZoomableImage(modifier: Modifier = Modifier) {
             offsetY = 0f
         }
     }
-
+    LaunchedEffect(Unit) {
+        gestureEvents
+            .distinctUntilChanged()
+            .debounce(300L)
+            .collect {
+                Log.d("ZoomableImage", "Gesture event received")
+                if (isPitchDetected) {
+                    Log.d("ZoomableImage", "Gesture event received and isPitchDetected is true")
+                    isPitchDetected = false
+                }
+            }
+    }
     Image(
         painter = painterResource(id = R.drawable.flower),
         contentDescription = "Your Image",
@@ -87,6 +102,7 @@ fun ZoomableImage(modifier: Modifier = Modifier) {
                 detectTransformGestures(
                     onGesture = { centroid, pan, zoom, dragAmount ->
                         coroutineScope.launch {
+                            gestureEvents.emit(ZoomDragAmount(zoom, dragAmount))
 
                             Log.d("ZoomableImage", "Centroid: $centroid, Pan: $pan, Zoom: $zoom, DragAmount: $dragAmount")
 
@@ -102,10 +118,7 @@ fun ZoomableImage(modifier: Modifier = Modifier) {
                                 isZooming
                             }
 
-                            delay(100)
-                            if (zoom.isNearOne()
-                                 && dragAmount.isNearZero()
-                            ) {
+                            if (zoom.isNearOne() && dragAmount.isNearZero()) {
                                 isPitchDetected = false
                                 Log.d("ZoomableImage", "Gesture ended")
                             }
@@ -130,8 +143,9 @@ private fun Float.plusIf(floatToAdd: Float, predicate: () -> Boolean): Float = i
     this
 }
 
-private fun Float.isNearOne(): Boolean = (this - 1f).absoluteValue < 0.01f
-// this == 1f
+private fun Float.isNearOne(): Boolean =
+    // this == 1f
+    (this - 1f).absoluteValue < 0.01f
 
 private fun Float.isNearZero(): Boolean = (this).absoluteValue == 0f
 
